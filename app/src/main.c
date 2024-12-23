@@ -11,24 +11,6 @@
 
 LOG_MODULE_REGISTER(main, CONFIG_APP_LOG_LEVEL);
 
-static uint8_t index_html_gz[] = {
-#include "index.html.gz.inc"
-};
-
-static struct http_resource_detail_static index_html_res_detail = {
-    .common =
-        {
-            .type = HTTP_RESOURCE_TYPE_STATIC,
-            .bitmask_of_supported_http_methods = BIT(HTTP_GET),
-            .content_encoding = "gzip",
-            .content_type = "text/html",
-        },
-    .static_data = index_html_gz,
-    .static_data_len = sizeof(index_html_gz),
-};
-
-HTTP_RESOURCE_DEFINE(index_html_res, http_service, "/", &index_html_res_detail);
-
 static uint16_t http_port = 80;
 HTTP_SERVICE_DEFINE(http_service, NULL, &http_port, CONFIG_HTTP_SERVER_MAX_CLIENTS, 10, NULL);
 
